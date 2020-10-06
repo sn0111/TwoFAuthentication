@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block container %}
+<div class="row centered-form">
+  <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-1 col-md-offset-3">
+    <div class="panel panel-default" style="width: 150%">
+      
+      <div class="panel-heading">
+        <h3 class="panel-title">Token Verification</h3>
+      </div>
+      
+      <div class="panel-body">
+        <form action="{% url '2fa1' %}" method="POST" role="form">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          {{ form.token.errors }}
+          <div class="row">
+            {{ form.token }}
+          </div>
+
+          <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <a href="{% url 'token-sms1' %}" class="btn btn-info btn-block action-btn">SEND_SMS</a>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <input type="submit" value="Verify" class="btn btn-success btn-block">
+            </div>
+          </div>
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(initializeActionButtons);
+</script>
+{% endblock %}
