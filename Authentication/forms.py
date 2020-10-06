@@ -51,19 +51,19 @@ class RegistrationForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=encrypt(username)).exists():
             self.add_error('username', 'Username is already taken')
         return username
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
-        if User.objects.filter(phone_number=phone_number):
+        if User.objects.filter(phone_number=encrypt(phone_number)):
             self.add_error('phone_number','Phone number is already taken')
         return phone_number
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        if User.objects.filter(email=email):
+        if User.objects.filter(email=encrypt(email)):
             self.add_error('email','Email is already taken')
         return email
 
